@@ -1,0 +1,131 @@
+# questionnaire plugin
+en:
+  activerecord:
+    errors:
+      models:
+        questionnaire:
+          attributes:
+            starts_on:
+              notice_must_be_after_or_equal_today: "must be after or equal today"
+            ends_on:
+              notice_must_be_before_end_time: "must be before ends date"
+
+  field_questions:
+    entitled: Title
+    nature: Nature
+    nature_values: Values
+    answer_required: Answer required
+
+  label_general_options_plural: General options
+  label_questionnaire: Questionnaire plugin
+  label_permission_new: New permission
+  label_add_questionnaire: Add Questionnaire
+  label_valid_questionnaire: Valid Questionnaire
+  label_permission_plural: Permissions
+  label_users_search: Search an user
+  label_title_questionnaire: Questionnaire
+  label_questionnaire: Questionnaire
+  label_questionnaire_plural: Questionnaires
+  label_my: My
+  label_currents: Currents
+  label_finished: Finished
+  label_recipients: Recipients
+  label_responses_viewers: Responses viewers
+  label_concerned: Concerned
+  label_question: Question
+  label_question_plural: Questions
+  label_questionnaire_new: New questionnaire
+  label_questionnaire_updated: Questionnaire updated
+  label_in_hour: Hour
+  label_yes_no: Yes/No
+  label_free_text: Free text
+  label_unique_choice_list: Unique choice list
+  label_multi_choice_list: Multiple choice list
+  label_question_new: New question
+  label_cancel: Cancel
+  label_add: Add
+  label_no_questions: No questions
+  label_responses_view_title: Consultation responses
+  label_choose_view: Choose your view
+  label_global_view: Global view
+  label_respondents_view: Respondents view
+  label_questions_view:  Questions view
+  label_answer_plural: Answers
+  label_absentation: Abstentions
+  label_all_members: All members
+  label_all_recipients: All recipients
+
+  button_published: Publish
+  button_unpublished: Unpublish
+  button_replies: Replies
+  button_responses_to_csv: Replies to CSV
+
+  field_permissions: Permissions
+  field_starts_on: Start
+  field_ends_on: End
+  field_validate_by: Validator
+  field_revival: Revival
+  field_published: Published
+  field_send_mail_after_recipient_response: Recieve a mail after responses of recipient
+  field_question: Question
+  field_send_mail_language: Send mail language
+  
+  field_entitled: Title
+  field_nature: Nature
+  field_answer_required: Answer required
+  field_recipient: Recipient
+  field_recipients: Recipients
+  field_responses_viewers: Responses viewers
+  field_nature_values: Nature values
+  field_position: Position
+  field_replies_count: Replies
+
+  text_on_delete_pemissions_confirmation: "You will remove all permissions of this user after that.\nAre you sure you want to continue?"
+  text_questionnaire_must_have_validators: Validation of questionnaires
+  text_questionnaire_category_destroy_question: Some questionnaire ({{value}}) is assigned to this category. What do you want to do ?
+  text_questionnaire_category_destroy_assignments: Remove category assignments
+  text_questionnaire_category_reassign_to: Reassign questionnaire to this category
+  text_questionnaire_added: Questionnaire {{title}} has been created by {{author}}.
+  text_questionnaire_updated: Questionnaire {{title}} has been updated by {{author}}.
+  text_questionnaire_pdf_title_not_set: Attention! Please specify PDF title in questionnaire Settings first.
+  text_on_delete_questionnaire_confirmation: "Attention! you will remove the questionnaire : %{questionnaire}.\nBy removing the questionnaire, questions and answers will also be deleted \nAre you sure you want to continue?"
+  text_on_delete_question_confirmation: "Attention! you will remove the question"
+  text_people_responded: "People reponded"
+  text_select_recipients: "Select your recipients"
+  text_select_responses_viewers: "Select your responses viewers"
+  text_invitation_to_validator_begin: "Mr. %{creator} has just created a questionnaire and as you said validator."
+  text_invitation_to_validator_end: "Thank you to validate it for publication"
+  text_notification_after_replies: "Mr. %{recipient} has just answered your questionnaire:"
+  text_invitation_to_recipient_begin: "Mr. %{creator} has just created a questionnaire and invite you to respond."
+  text_invitation_to_recipient_end: "You have until %{ends} to respond."
+  text_thanks_you: "Thanks you"
+  text_revival_for_recipient: "You still have not answered the questionnaire:"
+  text_revival_for_recipient_12hours_before_ends: "Beware, you have 12 hours to complete the questionnaire:"
+  text_notification_to_recipient: "The questionnaire %{q} has been removed from the list of questionnaires issued."
+  text_end_notification_to_creator: "You are invited to find answers to your questionnaire:"
+  text_did_not_responded: "Didn't responded"
+  text_responded: "Responded"
+  text_select_questions: "Select the question(s)"
+
+
+  permission_view_questionnaires: View questionnaire
+  permission_add_questionnaires: New questionnaire
+  permission_edit_questionnaires: Edit questionnaire
+  permission_delete_questionnaires: Delete questionnaire
+  permission_manage_questionnaire_categories: Manage questionnaire Categories
+  permission_questionnaire_setting: Questionnaire Settings
+
+  project_module_questionnaire: Questionnaire
+
+  notice_failed_to_save_permissions: "Failed to save permissions : \n %{errors}."
+  notice_entitled: "Title should be entered"
+  notice_failed_to_save_questionnaire: "Failed to save questionnaire : \n %{errors}."
+  notice_failed_to_update_questionnaire: "Failed to update questionnaire : \n %{errors}."
+  notice_natures_values_insuffisant: "Values ​​must be at least 2"
+  notice_can_be_published: "The questionnaire may be published by the validator"
+  notice_must_have_validator: "The questionnaire can be registered without a validator"
+  notice_for_publication: "After publication of the questionnaire, the recipients will receive an invitation to meet and you can not change."
+  notice_for_unpublication: "You're unpublish the questionnaire «%{q}», the recipients will receive an email informing them of the interruption of the survey.\nAre you sure you want to continue?"
+  notice_can_not_published_questionnaire: "The questionnaire can't be published."
+  notice_required_question_values_cant_be_blank: "You must answer all required questions before recording your answers"
+  

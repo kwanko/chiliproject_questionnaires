@@ -1,0 +1,12 @@
+<%
+# Questionnaires plugin for Chiliproject
+# Copyright (C) 2008-2009  Arnauld NYAKU
+%>
+<div class="clearfix"></div>
+<% currents = Questionnaire.currents_all_projects.group_by(&:project_id) %>
+<% if currents.any? %>
+ <h3><%= l(:label_questionnaire_plural) %></h3>
+ <% currents.collect do |project, questionnaires| %>
+  <%= link_to Project.find(project).name.to_s + " ("+ questionnaires.uniq.count.to_s + ") ", {:controller => "questionnaires", :action => "index", :project_id => Project.find(project).identifier, :tab => "currents" }, :title => l(:label_currents) %>
+ <%end%>
+<%end%>

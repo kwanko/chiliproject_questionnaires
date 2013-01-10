@@ -1,0 +1,12 @@
+<strong><%=  @questionnaire.validator %>,</strong>
+<br/>
+<%=  l(:text_invitation_to_validator_begin, :creator =>  @questionnaire.author, :locale => @questionnaire.send_mail_language) %>
+<ul>
+<li><%=l(:field_project, :locale => @questionnaire.send_mail_language)%>: <%= @questionnaire.project.name %></li>
+<li><%=l(:field_title, :locale => @questionnaire.send_mail_language)%>: <%= @questionnaire.title %></li>
+<li><%=l(:field_description, :locale => @questionnaire.send_mail_language)%>: <%= @questionnaire.description %></li>
+<li><%=l(:field_author, :locale => @questionnaire.send_mail_language)%>: <%= @questionnaire.author %></li>
+<li><%=l(:field_url, :locale => @questionnaire.send_mail_language)%>: <%= @questionnaire_url %></li>
+</ul>
+<br/>
+<%=  l(:text_invitation_to_validator_end, :locale => @questionnaire.send_mail_language) %>.

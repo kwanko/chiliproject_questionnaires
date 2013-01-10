@@ -1,0 +1,7 @@
+<tr class="new_question">
+   <td><%= f.text_field :entitled, :size => 50 %></td>
+   <td><%= f.select :nature, QuestionnairesQuestion::NATURES.collect {|n| [l('label_' + n.downcase), n]},{} ,{:onchange => "show_values_of_natures_box(this);"} %></td>
+   <td><%= f.text_area :nature_values, :rows => 5, :cols => 20 %></td>
+   <td align='center'><%= f.check_box :answer_required %></td>
+   <td class="buttons"><%= link_to_remove_question_fields l(:button_delete), f, "icon icon-del", l(:text_on_delete_question_confirmation) %></td>
+</tr>

@@ -1,0 +1,36 @@
+<% maxreplies = maxreplies_of(@questions) %>
+<% if @questions.count > 0 %>
+  <table class="list">
+    <thead>
+    <tr>
+      <th align="left"><%= l :label_question_plural %></th>
+      <th colspan="<%= maxreplies %>"><%= l :label_answer_plural %></th>
+    </tr>
+    </thead>
+    <% for question in @questions %>
+    <tr class="<%= cycle("odd", "even") %>">
+       <td></td>
+       <% replies = grouped_replies(question).collect do |reply| %>
+       <td align="center" class="bold"><%= textilizable pretty_values(question, reply) %></td>
+       <%end%>
+       <% if maxreplies > replies.size %>
+         <% (maxreplies-replies.size).times do %>
+         <td></td>
+         <%end%>
+       <% end %>
+    </tr>
+    <tr class="<%= cycle("odd", "even") %>">
+      <td align="left"><%= h question.entitled %></td>
+       <% replies = grouped_replies(question).collect do |reply| %>
+      <td align="center"><%= label_tag question.id, (reply.blank? || reply.empty? ?  0 : question.responded_with(reply).count), :title => l(:text_people_responded) %></td>
+      <%end%>
+      <% if maxreplies > replies.size %>
+       <% (maxreplies-replies.size).times do %>
+       <td></td>
+      <%end%>
+     <%end%>
+    </tr>
+    <%end%>
+
+  </table>
+<%end%>

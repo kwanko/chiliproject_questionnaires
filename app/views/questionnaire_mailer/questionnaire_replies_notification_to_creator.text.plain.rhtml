@@ -1,0 +1,5 @@
+<%= l(:text_notification_after_replies, :recipient => User.current.name, :locale => @questionnaire.send_mail_language) %>
+<%= l(:field_project, :locale => @questionnaire.send_mail_language)%>: <%= @questionnaire.project.name %>
+<%= l(:field_url, :locale => @questionnaire.send_mail_language)%>: <%= @questionnaire_url %>
+
+<%= l(:text_thanks_you, :locale => @questionnaire.send_mail_language) %>

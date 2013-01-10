@@ -1,0 +1,131 @@
+# questionnaire plugin
+fr:
+  activerecord:
+    errors:
+      models:
+        questionnaire:
+          attributes:
+            starts_on:
+              notice_must_be_after_or_equal_today: "doit être postérieure ou égale aujourd'hui"
+            ends_on:
+              notice_must_be_before_end_time: "doit être antérieure à la date de fin"
+
+  field_questions:
+    entitled: Titre
+    nature: Nature
+    nature_values: Valeurs
+    answer_required: Réponse obligatoire
+
+  label_general_options_plural: Options générales
+  label_questionnaire: Questionnaire plugin
+  label_permission_new: Nouvelle permission
+  label_add_questionnaire: Ajouter Questionnaire
+  label_valid_questionnaire: Valider Questionnaire
+  label_permission_plural: Permissions
+  label_users_search: Rechercher un utilisateur
+  label_title_questionnaire: Questionnaire
+  label_questionnaire: Questionnaire
+  label_questionnaire_plural: Questionnaires
+  label_my: Mes Questionnaires
+  label_currents: Encours
+  label_finished: Finis
+  label_recipients: Destinataires
+  label_concerned: Concernés
+  label_question: Question
+  label_question_plural: Questions
+  label_responses_viewers: Autorisés à voir les réponses
+  label_questionnaire_new: Nouveau Questionnaire
+  label_questionnaire_updated: questionnaire mise-à-jour
+  label_in_hour: Heures
+  label_yes_no: Oui/Non
+  label_free_text: Texte libre
+  label_unique_choice_list: Liste de choix unique
+  label_multi_choice_list: Liste de choix multiple
+  label_question_new: Nouvelle question
+  label_cancel: Annuler
+  label_add: Ajouter
+  label_no_questions: Pas de questions
+  label_responses_view_title: Consultation des réponses
+  label_choose_view: Choisir votre vue
+  label_global_view: Vue globale
+  label_respondents_view: Vue par répondant(s)
+  label_questions_view:  Vue par question(s)
+  label_answer_plural: Réponses
+  label_noanswers_count: Abstentions
+  label_all_members: Tous les membres
+  label_all_recipients: Tous les destinataires
+
+  button_published: Publier
+  button_unpublished: Dépublier
+  button_replies: Réponses
+  button_responses_to_csv: Réponses to CSV
+
+  field_permissions: Permissions
+  field_starts_on: Début
+  field_ends_on: Fin
+  field_validate_by: Validateur
+  field_revival: Relance
+  field_published: Publié
+  field_send_mail_after_recipient_response: Recevoir un mail après les réponses d'un destinataire
+  field_question: Question
+  field_send_mail_language: Langue d'envoi du mail
+  
+  field_entitled: Intitulé
+  field_nature: Nature
+  field_answer_required: Réponse obligatoire
+  field_recipient: Destinataire
+  field_recipients: Destinataires
+  field_responses_viewers: Autorisés à voir les réponses
+  field_nature_values: Valeurs possibles
+  field_position: Position
+  field_replies_count: Réponses
+
+  
+  text_on_delete_pemissions_confirmation: "Vous allez supprimer toutes les permissions de cet utilisateur.\nEtes-vous sûr de vouloir continuer?"
+  text_questionnaire_must_have_validators: Validation des questionnaires
+  text_questionnaire_category_destroy_question: Certaines questionnaire ({{value}}) sont assignée à cette catégorie. Que voulez-vous faire?
+  text_questionnaire_category_destroy_assignments: Effacer les assignations de catégorie
+  text_questionnaire_category_reassign_to: Ré-assigner les questionnaire de cette catégorie
+  text_questionnaire_added: questionnaire {{title}} créé par {{author}}.
+  text_questionnaire_updated: questionnaire {{title}} créé {{author}}.
+  text_questionnaire_pdf_title_not_set: Attention! Please specify PDF title in questionnaire Settings first.
+  text_on_delete_questionnaire_confirmation: "Attention! vous allez supprimer le questionnaire : %{questionnaire}.\n En supprimant le questionnaire, les questions et les réponses seront aussi supprimées.\nEtes-vous sûr de vouloir continuer?"
+  text_on_delete_question_confirmation: "Attention! vous allez supprimer la question"
+  text_people_responded: "Personne(s) ont répondu"
+  text_select_recipients: "Selectionner vos destinataires"
+  text_select_responses_viewers: "Selectionner ceux qui voir les réponses"
+  text_invitation_to_validator_begin: "Mr. %{creator} vient de créer un questionnaire et vous a indiqué comme validateur."
+  text_notification_after_replies: "Mr. %{recipient} vient de répondre à votre questionnaire:"
+  text_invitation_to_validator_end: "Merci de le valider pour publication"
+  text_invitation_to_recipient_begin: "Mr. %{creator} vient de créer un questionnaire et vous invite à y répondre."
+  text_invitation_to_recipient_end: "Vous avez jusqu'au %{ends} pour répondre."
+  text_thanks_you: "Merci"
+  text_revival_for_recipient: "Vous avez toujours pas répondu au questionnaire:"
+  text_revival_for_recipient_12hours_before_ends: "Attention, il vous reste 12 hours pour répondre au questionnaire:"
+  text_notification_to_recipient: "Le questionnaire %{q} vient d'être retiré de la liste des questionnaires publiés."
+  text_end_notification_to_creator: "Vous êtes invités à consulter les réponses de votre questionnaire:"
+  text_did_not_responded: "N'a pas répondu"
+  text_responded: "A répondu"
+  text_select_questions: "Sélectionner la/les question(s)"
+
+  permission_view_questionnaires: View Questionnaire
+  permission_add_questionnaires: Nouveau Questionnaire
+  permission_edit_questionnaires: Edit Questionnaire
+  permission_delete_questionnaires: Delete Questionnaire
+  permission_manage_questionnaire_categories: Manage questionnaire Categories
+  permission_questionnaire_setting: Paramétrage Questionnaire
+
+  project_module_questionnaire: Questionnaire
+
+  notice_failed_to_save_permissions: "Erreurs lors de l'enregistrement des permissions : \n %{errors}."
+  notice_entitled: "Intitulé doit être renseigné"
+  notice_failed_to_save_questionnaire: "Erreurs lors de l'enregistrement du questionnaire : \n %{errors}."
+  notice_failed_to_update_questionnaire: "Erreurs lors de la mise à jour du questionnaire : \n %{errors}."
+  notice_natures_values_insuffisant: "Les valeurs doivent avoir au moins 2"
+  notice_can_be_published: "Le questionnaire ne peut être publié que par le validateur"
+  notice_must_have_validator: "Le questionnaire ne peut être enregistré sans un validateur"
+  notice_for_publication: "Après publication du questionnaire, les destinataires recevront une invitation pour répondre et vous ne pourrez plus le modifier"
+  notice_for_unpublication: "Vous êtes en train de dépublier le questionnaire «%{q}», les destinataires recevront un e-mail  pour les informer de l'interruption du questionnaire.\nEtes-vous sûr de vouloir continuer ?"
+  notice_can_not_published_questionnaire: "Le questionnaire ne peut être publié."
+  notice_required_question_values_cant_be_blank: "Vous devez répondre à tous les questions obligatoires avant d'enregistrer vos réponses."  
+  

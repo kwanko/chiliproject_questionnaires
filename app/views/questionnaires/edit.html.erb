@@ -1,0 +1,24 @@
+<%#
+# Questionnaire plugin for Chiliproject
+# Copyright (C) 2011-2012 Arnauld NYAKU
+%>
+<h2><%= link_to l(:label_questionnaire_plural), project_questionnaires_path(@project) %> &#187; <%= @questionnaire.title %></h2>
+
+<% remote_form_for(@questionnaire, :as => :questionnaire, :url => project_questionnaire_path(@project, @questionnaire), :lang => current_language, :html => {:method => :put, :id => 'edit_questionnaire'}) do |f| %>
+<%= render :partial => 'form', :locals => { :f => f } %>
+<%= submit_tag l(:button_update) %>
+<%= link_to_remote l(:label_preview),
+                       { :url => { :controller => "questionnaires", :action => "preview", :questionnaire_id => @questionnaire, :project_id => @project},
+                         :method => 'post',
+                         :update => 'preview',
+                         :with => "Form.serialize('edit_questionnaire')",
+                         :complete => "Element.scrollTo('preview')"
+                       }, :accesskey => accesskey(:preview) %>
+<%end%>
+<% content_for :sidebar do %>
+    <%= render :partial => 'questionnaires/sidebar' %>
+<% end %>
+
+<div id="preview" class="wiki"></div>
+
+<% html_title(l(:label_title_questionnaire)) -%>

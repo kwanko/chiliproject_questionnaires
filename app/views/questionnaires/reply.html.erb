@@ -1,0 +1,31 @@
+<h2><%= link_to l(:label_questionnaire_plural), {:controller => 'questionnaires', :action => 'index', :project_id => @project, :tab => 'currents'} %> &#187;<%= @questionnaire.title %></h2>
+<%= error_messages_for 'questionnaire' %>
+<% remote_form_for(:reply, :url => {:controller => 'questionnaires', :action => 'create_replies', :project_id => @project, :questionnaire_id => @questionnaire}, :lang => current_language, :html =>{ :method => :post} ) do |f| %>
+<div class="wiki questionnaire-description">
+<p class="bold">
+ <%= textilizable @questionnaire.description %>
+ </p>
+</div>
+
+
+<div class="questions-list">
+
+<ol>
+  <% for question in @questionnaire.questions %>
+  <li><label class="bold"><%= question.entitled %> <label class="required"><%= question.answer_required ? '*' : ''  %></label></label></li><br/>
+      <%= generate_reply_options_for(question) %><br/><br/>
+  <% end %>
+</ol>
+</div>
+  <%= submit_tag l(:button_save) %>
+
+<%end%>
+
+<% content_for :sidebar do %>
+    <%= render :partial => 'questionnaires/sidebar' %>
+<% end %>
+
+
+<div id="preview" class="wiki"></div>
+
+<% html_title(l(:label_title_questionnaire)) -%>

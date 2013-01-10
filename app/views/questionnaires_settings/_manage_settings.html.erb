@@ -1,0 +1,93 @@
+<fieldset class="box">
+  <legend><%= l(:label_general_options_plural) %></legend>
+  <% remote_form_for(:questionnaires_option, @questionnaires_option, :url => {:controller => 'questionnaires_settings', :action => 'validate_options', :project_id => @project}, :method => :post, :html => {:id => 'questionnaires_options'},
+									   :loading => '$(\'must_have_validators\').disable();',
+									   :complete => 'if($(\'must_have_validators\')) $(\'must_have_validators\').enable();') do |f| %>
+  <%= check_box_tag 'must_have_validators', 1, @project.questionnaires_option ? @project.questionnaires_option.must_have_validators : false, :onclick => "$('questionnaires_options').submit();" %> <%= l (:text_questionnaire_must_have_validators) %>
+  <% end %>
+</fieldset>
+<%= error_messages_for 'questionnaire_user_pemission' %>
+<%  questionnaire_user_permissions = @project.questionnaires_permissions %>
+<fieldset class="box">
+  <legend><%= l(:label_permission_plural) %></legend>
+<div class="splitcontentleft">
+<% if questionnaire_user_permissions.any? %>
+  <table class="list questionnaire_users">
+          <thead>
+            <tr>
+              <th><%= l(:label_user) %> </th>
+              <th><%= l(:label_permission_plural) %></th>
+              <th style="width:15%;"></th>
+            </tr>
+          </thead>
+          <tbody>
+          <% questionnaire_user_permissions.each do |questionnaire_user_permission| %>
+          <% next if questionnaire_user_permission.new_record? %>
+            <tr id="questionnaire_user_permission-<%= questionnaire_user_permission.id %>" class="<%= cycle 'odd', 'even' %> questionnaire_user_permission">
+              <td class="<%= questionnaire_user_permission.q_user.type.to_s.downcase %>"><%= link_to_user questionnaire_user_permission.q_user.name %></td>
+              <td class="permissions"> 
+               <span id="questionnaire_user_permission-<%= questionnaire_user_permission.id %>-permissions"><%= questionnaire_user_permission.permissions.join(', ') %> </span>
+                  <% if authorize_for('questionnaires_settings', 'edit_permission') %>
+                    <% remote_form_for(:questionnaire_user_permission, questionnaire_user_permission, :url => {:controller => 'questionnaires_settings', :action => 'edit_permission', :id_perm => questionnaire_user_permission, :project_id => @project}, :method => :post, :html => { :id => "questionnaire_user_permission-#{questionnaire_user_permission.id}-permissions-form", :class => 'hol' }) do |f| %>
+                      <p>
+                          <% QuestionnairesUsersPermission::PERMISSIONS.each do |value| %>
+                            <label><input type="checkbox" name='questionnaire_user_permission[permissions][]' value="<%= value %>" <%= "checked='checked'" if questionnaire_user_permission.permissions.include?(value) %> /><%=  l 'label_' + value %></label><br/>          
+                          <% end %>
+                      </p>
+                      <p><%= submit_tag l(:button_change), :class => "small" %>
+                      <%= link_to_function l(:button_cancel), "$('questionnaire_user_permission-#{questionnaire_user_permission.id}-permissions').show(); $('questionnaire_user_permission-#{questionnaire_user_permission.id}-permissions-form').hide(); return false;" %></p>
+                    <% end %>
+                  <% end %>
+              </td>
+              <td class="buttons">
+                <%= link_to_function l(:button_edit), "$('questionnaire_user_permission-#{questionnaire_user_permission.id}-permissions').hide(); $('questionnaire_user_permission-#{questionnaire_user_permission.id}-permissions-form').show(); return false;", :class => 'icon icon-edit' %>
+                <%= link_to_remote(l(:button_delete), { :url => {:controller => 'questionnaires_settings', :action => 'destroy_permission', :id_perm => questionnaire_user_permission, :project_id => @project},
+                                                :method => :post,
+                                                :confirm => (!User.current.admin? ? l(:text_on_delete_pemissions_confirmation) : nil)
+                                              }, :title => l(:button_delete),
+                                                 :class => 'icon icon-del')  if questionnaire_user_permission.deletable? %>
+              </td>
+            </tr>
+          <% end; reset_cycle %>
+          </tbody>
+  </table>
+<% else %>
+  <p class="nodata"><%= l(:label_no_data) %></p>
+<% end %>
+</div>
+
+<% questionnaires_principals = @project.principals + Group.all - @project.q_users %>
+
+<div class="splitcontentright">
+<% if questionnaires_principals.any? %>
+  <% remote_form_for(:questionnaire_user_permission, @questionnaire_user_permission, :url => {:controller => 'questionnaires_settings', :action => 'new_permission', :project_id => @project}, :method => :post,
+									   :loading => '$(\'questionnaire_user_permission-add-submit\').disable();',
+									   :complete => 'if($(\'questionnaire_user_permission-add-submit\')) $(\'questionnaire_user_permission-add-submit\').enable();') do |f| %>
+    <fieldset><legend><%=l(:label_permission_new)%></legend>
+
+		<p><%= label_tag "questionnaire_principal_search", l(:label_users_search) %><%= text_field_tag 'questionnaire_principal_search', nil %></p>
+		<%= observe_field(:questionnaire_principal_search,
+                 :frequency => 0.5,
+                 :update => :questionnaires_principals,
+                 :url => { :controller => 'questionnaires_settings', :action => 'autocomplete_for_questionnaire_user', :project_id => @project },
+                 :with => 'q')
+                  %>
+
+		<div id="questionnaires_principals">
+                  <%= principals_check_box_tags 'questionnaire_user_permission[user_ids][]', questionnaires_principals.uniq %>
+		</div>
+
+    <p><%= l(:label_permission_plural) %>:
+        <% QuestionnairesUsersPermission::PERMISSIONS.each do |value| %>
+            <label><%= check_box_tag 'questionnaire_user_permission[permissions][]', value %> <%=  l 'label_' + value %></label>
+   	<% end %>
+    </p>
+
+    <p><%= submit_tag l(:button_add), :id => 'questionnaire_user_permission-add-submit' %></p>
+  </fieldset>
+  <% end %>
+<% end %>
+</div>
+</fieldset>
+
+

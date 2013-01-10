@@ -1,0 +1,20 @@
+<table class="list">
+  <thead>
+    <tr>
+      <th><%= l(:field_entitled) %> </th>
+      <th><%= l(:field_nature) %></th>
+      <th><%= l(:field_nature_values) %></th>
+      <th><%= l(:field_answer_required) %></th>
+      <th style="width:15%;"></th>
+    </tr>
+  </thead>
+  <tbody id="questions">
+  <% if @questionnaire.questions.any? %>
+      <% f.fields_for :questions do |builder| %>
+      <%= render 'question', :f => builder %>
+      <% end %>
+  <% end %>
+  </tbody>
+</table>
+<p align="right"><%= link_to_add_question_fields l(:label_question_new), f, 'icon icon-add' %></p>
+<%= javascript_tag "hideAllNatureValuesBox();" %>

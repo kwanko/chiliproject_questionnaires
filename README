@@ -1,0 +1,53 @@
+=== questionnaire plugin 0.0.1
+
+This is a questionnaire/survey plugin for Chiliproject.
+
+ONLY compatible with Chiliproject 3.X NOT compatible with Chiliproject 2.X
+
+
+== Getting the plugin
+
+The newest version is always at {GitHub}[http://github.com/kwanko/chiliproject_questionnaires].
+
+
+=== Feature
+
+1. Set for each project users who can add or validate a questionnaire before publication
+
+2. Ask questions and request users to answer it
+
+3. Consult the user answers
+
+
+=== Plugin installation
+
+1. Copy the plugin directory(chiliproject_questionnaires) into the vendor/plugins directory
+   NOTE: The plugin directory must be chiliproject_questionnaires!
+
+2. Migrate plugin:
+   rake db:migrate_plugins NAME=chiliproject_questionnaires RAILS_ENV=production
+
+3. Start Chiliproject
+
+4. Grant add_questionnaire right to users who will create questionnaire and valid_questionnaire right to user in charge of the validation of questionnaire
+
+
+=== Changelog
+
+0.0.1 -> first version
+
+
+=== Language contributors
+
+fr.yml - Arnauld NYAKU
+en.yml - Arnauld NYAKU
+
+
+=== Contact info
+
+Homepage -> powered by Chiliproject
+Email    -> arnauld.nyaku@c2bsa.com
+
+=== Licence
+
+The code is released under the GPLv2: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html

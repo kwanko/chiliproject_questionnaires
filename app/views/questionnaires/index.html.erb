@@ -1,0 +1,20 @@
+<%
+# questionnaire plugin for Chiliproject
+# Copyright (C) 2011-2012  Arnauld NYAKU
+%>
+
+<div class="contextual">
+<%= link_to_if_authorized_create_questionnaire(@project, l(:label_questionnaire_new), {:controller => "questionnaires", :action => "new", :project_id => @project}, :class => 'icon icon-add') %>
+</div>
+
+<h2><%= l(:label_questionnaire_plural) %></h2>
+
+<%= render_tabs questionnaires_tabs %>
+
+<% content_for :sidebar do %>
+    <%= render :partial => 'questionnaires/sidebar' %>
+<% end %>
+
+
+<% html_title(l(:label_questionnaire_plural)) -%>
+

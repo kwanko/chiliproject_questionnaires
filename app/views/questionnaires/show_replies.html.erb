@@ -1,0 +1,27 @@
+<h2><%= l :label_responses_view_title %> &#187;<%= @questionnaire.title %></h2>
+
+<% remote_form_for(:replies, :url => { :controller => "questionnaires", :action => "show_replies", :project_id => @project, :questionnaire_id => @questionnaire}, :lang => current_language, :html => {:method => :get}) do %>
+  <fieldset class="box">
+    <legend><%= l :label_choose_view %> </legend>
+    <div class="view-left box">
+       <label style='display:block;'><%= radio_button_tag(:viewchoosed, "globalview", true, :onclick => "$('nature_checkes').show(); $('recipients').hide(); $('questions').hide();") + l(:label_global_view) %> </label>
+       <label style='display:block;'><%= radio_button_tag(:viewchoosed, "respondentsview", false, :onclick => " $('recipients').show(); $('nature_checkes').hide(); $('questions').hide();") + l(:label_respondents_view)%></label>
+       <label style='display:block;'><%= radio_button_tag(:viewchoosed, "questionsview", false, :onclick => "$('questions').show(); $('nature_checkes').hide(); $('recipients').hide();") + l(:label_questions_view) %></label>
+    </div>
+    <div class="view-right box">
+      <span id="nature_checkes">
+        <label style='display:block;'><%= check_box_tag :all, 1, false, :onclick => "selectAll(this, '.nature_check')" %> <%=l(:label_all).capitalize%></label>
+        <%= @questionnaire.questions.collect(&:nature).uniq.collect { |n| "<label style='display:block;'>" + check_box_tag(n, n, (n != "FREE_TEXT"), {:class => 'nature_check', :onclick => "if(!(this.checked)) $('all').checked = false;"}) + " " + label_tag(l('label_' + n.downcase)) + "</label>" }.join() %>
+      </span>
+      <span id="recipients" style=" display: none;"><%= select_tag 'recipients', options_from_collection_for_select(@questionnaire.recipients.collect(&:user), :id, :name), "data-placeholder" => l(:text_select_recipients), :class => 'chzn-select', :multiple => true, :style =>'width:450px;' %></span>
+      <span id="questions" style=" display: none;"><%= select_tag 'questions', "<option value = ''> #{l(:text_select_questions)}</option>" + options_from_collection_for_select(@questionnaire.questions, :id, :entitled), :multiple => true, :style =>'width:450px;' %></span>
+    </div>
+    <div class="clearfix"></div>
+      <p align="center"><%= submit_tag l :button_view %></p>
+  </fieldset>
+<%end%>
+<div class="box" id="replies_view">
+ <%= render 'globalview' %>
+</div>
+
+

@@ -1,0 +1,10 @@
+<%= @state == 0 ? l(:text_invitation_to_recipient_begin, :creator => @questionnaire.author, :locale => @questionnaire.send_mail_language) : l(:text_notification_to_recipient, :q => @questionnaire.title, :locale => @questionnaire.send_mail_language)%>
+
+<%= l(:field_project, :locale => @questionnaire.send_mail_language)%>: <%= @questionnaire.project.name %>
+<%= l(:field_title, :locale => @questionnaire.send_mail_language)%>: <%= @questionnaire.title %>
+<%= l(:field_description, :locale => @questionnaire.send_mail_language)%>: <%= @questionnaire.description %>
+<%= l(:field_url, :locale => @questionnaire.send_mail_language) + ': ' + @questionnaire_url if @state == 0 %>
+
+<%= l(:text_invitation_to_recipient_end, :ends => "#{I18n::l(@questionnaire.ends_on.to_date, :locale => @questionnaire.send_mail_language)}", :locale => @questionnaire.send_mail_language) if @state == 0 %>
+
+<%= l(:text_thanks_you, :locale => @questionnaire.send_mail_language) %>.

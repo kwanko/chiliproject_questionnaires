@@ -1,0 +1,41 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<% if @finished and @finished.any? %>
+<table class="list">
+  <thead>
+    <tr>
+      <th><%= l(:field_title) %> </th>
+      <th><%= l(:field_description) %></th>
+      <th><%= l(:field_starts_on) %></th>
+      <th><%= l(:field_ends_on) %></th>
+      <th><%= l(:field_validate_by) %></th>
+      <th style="width:15%;"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%  @finished.uniq.each do |q| %>
+    <tr class="<%= cycle("odd", "even") %>">
+      <td><%= q.canbereplyby?(User.current) ? link_to(h(q.title), {:controller => 'questionnaires', :action => 'show', :id => q, :project_id => @project}, :method => :get) : h(q.title)%></td>
+      <td><div class="tooltip"><%= h truncate(q.description, :length => 60)%> <span class="tip"><%= render_questionnaire_tooltip q %></span></div></td>
+      <td><%= h format_date(q.starts_on) %></td>
+      <td><%= h format_date(q.ends_on) %></td>
+      <td><%= h q.validator.name if q.validate_by and !q.validate_by.zero? %></td>
+      <td class="buttons">
+       <% if q.replies.group_by(&:user_id).count > 0 %>
+          <%= link_to(l(:button_replies), {:controller => 'questionnaires', :action => 'show_replies', :questionnaire_id => q, :project_id => @project}, :method => :get, :class => 'icon icon-replies')%>
+          <%= link_to l(:button_responses_to_csv), {:controller => 'questionnaires', :action => 'show_replies', :questionnaire_id => q, :project_id => @project, :format => 'csv'}, :method => :get, :class => 'icon icon-csv', :title => l(:button_responses_to_csv) %>
+        <%end%>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<% else %>
+  <span id="no-questions"><p class="nodata"><%= l(:label_no_data) %></p></span>
+<% end %>
+
+<script>
+ if($('tab-finished')) $('tab-finished').insert({bottom:" (<%= @finished.uniq.count.to_s %>)"});
+</script>

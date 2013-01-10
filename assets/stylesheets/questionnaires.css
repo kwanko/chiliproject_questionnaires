@@ -1,0 +1,70 @@
+
+div#tab-content-questionnaires_settings .splitcontentleft { width: 64%; }
+div#tab-content-questionnaires_settings .splitcontentright { width: 34%;}
+div#tab-content-questionnaires_settings fieldset { padding:1em; margin-bottom: 1em; }
+div#tab-content-questionnaires_settings fieldset legend { font-weight: bold; }
+div#tab-content-questionnaires_settings fieldset label { display: block; }
+div#tab-content-questionnaires_settings fieldset div { min-height: 400px;}
+
+table.questionnaire_users td.group { padding-left: 20px; background: url(../images/group.png) no-repeat 0% 50%; }
+
+table.questionnaire_users td.permissions { width: 45%; }
+
+input#questionnaire_principal_search {width:100%}
+
+* html div#tab-content-questionnaires_settings fieldset div { height: 450px; }
+
+
+div.recipients, div.responses-viewers { float: left; width: 48%;}
+div.recipients { margin-right:10px;}
+fieldset div.questionnaire-left { float: left; width: 59%;}
+
+fieldset div.questionnaire-right { float: left; width: 40%;}
+
+div.questionnaire-left .questionnaire-tabular p{
+margin: 0;
+padding: 5px 0 8px 0;
+padding-left: 10px; /*width of left column containing the label elements*/
+height: 1%;
+clear:left;
+}
+
+.questionnaire-tabular label{
+font-weight: bold;
+float: left;
+text-align: right;
+margin-left: -100px; /*width of left column*/
+width: 175px; /*width of labels. Should be smaller than left column to create some right
+margin*/
+}
+div.reciptoview {float: left; width: 8%; padding-left: 50px; padding-top: 20px;}
+
+.clearfix { clear:both; float:none; overflow:hidden; height: 5px;}
+
+ul.new-question-form {list-style:none; margin:0; padding:3px;}
+
+ul.new-question-form li {display:inline; padding-right: 15px;}
+
+.new-question-links { float: right; vertical-align: middle;}
+
+.bold {font-weight: bold;}
+.block {display: block;}
+
+.icon-reply  { background-image: url(../images/reply.png); }
+.icon-replies  { background-image: url(../images/replies.png); }
+.icon-csv {background-image: url(../images/csv.png);}
+
+div.view-left { float: left; width: 20%;}
+div.view-right { float: left; width: 74%; margin-left: 3px;}
+
+.recipient{width: 10%;}
+.questionview_recipient {padding-left: 10px; text-align: left;}
+.questionnaire-description {margin: 10px; padding: 5px;}
+
+
+div.questions-list {padding: 10px;}
+div.questions-list ol {list-style: decimal inside none;}
+
+div.wiki fieldset.questionnaire-preview { padding-left: 10px;}
+
+

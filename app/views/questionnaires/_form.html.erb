@@ -1,0 +1,92 @@
+<%#
+# Questionnaire plugin for Chiliproject
+# Copyright (C) 2001-2012  Arnauld NYAKU
+%>
+<%= error_messages_for 'questionnaire' %>
+<fieldset class="box">
+  <legend><%= l :label_concerned %> </legend>
+  <div class="recipients">
+    <fieldset>
+      <legend> <%= l :label_recipients %> </legend>
+      <% if @questionnaire.new_record? %>
+      <label class="bold block"><%= check_box_tag('all_members_for_recipients',1 , false, :onclick => "if(this.checked) {$('myrecipients_chzn').down('input').setStyle({width: '450px'}); $('myrecipients_chzn').down('input').setAttribute('disabled', 'disabled')} else {$('myrecipients_chzn').down('input').removeAttribute('disabled')}") + l(:label_all_members)%></label>
+        <%= chosen_select_tag 'recipients[]', l(:text_select_recipients), @project, [], 'myrecipients' %>
+      <%else%>
+       <label class="bold block"><%= check_box_tag('all_members_for_recipients',1,recipients_equal_all_members?(@questionnaire), :onclick => "if(this.checked) {$('myrecipients_chzn').down('input').setStyle({width: '450px'}); $('myrecipients_chzn').down('input').setAttribute('disabled', 'disabled')} else {$('myrecipients_chzn').down('input').removeAttribute('disabled')}") + l(:label_all_members)%></label>
+        <%= chosen_select_tag 'recipients[]', l(:text_select_recipients), @project, (recipients_equal_all_members?(@questionnaire) ? [] : @questionnaire.recipients.collect(&:user_id)), 'myrecipients' %>
+      <%end%>
+    </fieldset>
+  </div>
+  <div class="responses-viewers">
+    <fieldset>
+      <legend> <%= l :label_responses_viewers %> </legend>
+      <div id="responsesviewers">
+        <% if @questionnaire.new_record? %>
+        <label class="bold block"><%= check_box_tag('all_members_for_responses_viewers', 1, false, :onclick => "if(this.checked) {$('all_recipients').checked = false; $('responses_viewers_chzn').down('input').setStyle({width: '450px'}); $('responses_viewers_chzn').down('input').setAttribute('disabled', 'disabled')} else {$('responses_viewers_chzn').down('input').removeAttribute('disabled')}") + l(:label_all_members) %></label>
+        <label class="bold block"><%= check_box_tag('all_recipients', 1, false, :onclick => "if(this.checked) {$('all_members_for_responses_viewers').checked = false; $('responses_viewers_chzn').down('input').setStyle({width: '450px'}); $('responses_viewers_chzn').down('input').setAttribute('disabled', 'disabled')} else {$('responses_viewers_chzn').down('input').removeAttribute('disabled')}") + l(:label_all_recipients) %></label>
+        <%= chosen_select_tag 'responses_viewers[]', l(:text_select_responses_viewers), @project, [], "responses_viewers"%>
+        <%else%>
+         <%if responses_viewers_equal_all_members?(@questionnaire)%>
+         <label class="bold block"><%= check_box_tag('all_members_for_responses_viewers', 1, true, :onclick => "if(this.checked) {$('all_recipients').checked = false; $('responses_viewers_chzn').down('input').setStyle({width: '450px'}); $('responses_viewers_chzn').down('input').setAttribute('disabled', 'disabled')} else {$('responses_viewers_chzn').down('input').removeAttribute('disabled')}") + l(:label_all_members) %></label>
+         <label class="bold block"><%= check_box_tag('all_recipients', 1,false , :onclick => "if(this.checked) {$('all_members_for_responses_viewers').checked = false; $('responses_viewers_chzn').down('input').setStyle({width: '450px'}); $('responses_viewers_chzn').down('input').setAttribute('disabled', 'disabled')} else {$('responses_viewers_chzn').down('input').removeAttribute('disabled')}") + l(:label_all_recipients) %></label>
+         <%= chosen_select_tag 'responses_viewers[]', l(:text_select_responses_viewers), @project, [], "responses_viewers"%>
+         <%elsif responses_viewers_equal_recipients?(@questionnaire)%>
+         <label class="bold block"><%= check_box_tag('all_members_for_responses_viewers', 1, false, :onclick => "if(this.checked) {$('all_recipients').checked = false; $('responses_viewers_chzn').down('input').setStyle({width: '450px'}); $('responses_viewers_chzn').down('input').setAttribute('disabled', 'disabled')} else {$('responses_viewers_chzn').down('input').removeAttribute('disabled')}") + l(:label_all_members) %></label>
+         <label class="bold block"><%= check_box_tag('all_recipients', 1,true , :onclick => "if(this.checked) {$('all_members_for_responses_viewers').checked = false; $('responses_viewers_chzn').down('input').setStyle({width: '450px'}); $('responses_viewers_chzn').down('input').setAttribute('disabled', 'disabled')} else {$('responses_viewers_chzn').down('input').removeAttribute('disabled')}") + l(:label_all_recipients) %></label>
+         <%= chosen_select_tag 'responses_viewers[]', l(:text_select_responses_viewers), @project, [], "responses_viewers"%>
+         <%else%>
+         <label class="bold block"><%= check_box_tag('all_members_for_responses_viewers', 1, false, :onclick => "if(this.checked) {$('all_recipients').checked = false; $('responses_viewers_chzn').down('input').setStyle({width: '450px'}); $('responses_viewers_chzn').down('input').setAttribute('disabled', 'disabled')} else {$('responses_viewers_chzn').down('input').removeAttribute('disabled')}") + l(:label_all_members) %></label>
+         <label class="bold block"><%= check_box_tag('all_recipients', 1,false , :onclick => "if(this.checked) {$('all_members_for_responses_viewers').checked = false; $('responses_viewers_chzn').down('input').setStyle({width: '450px'}); $('responses_viewers_chzn').down('input').setAttribute('disabled', 'disabled')} else {$('responses_viewers_chzn').down('input').removeAttribute('disabled')}") + l(:label_all_recipients) %></label>
+         <%= chosen_select_tag 'responses_viewers[]', l(:text_select_responses_viewers), @project, @questionnaire.responses_viewers.collect(&:user_id), "responses_viewers"%>
+         <%end%>
+        <%end%>
+      </div>
+    </fieldset>
+  </div>
+</fieldset>
+<div class="clearfix"></div>
+<fieldset class="box">
+  <legend><%= l :label_questionnaire %> </legend>
+  <div class="questionnaire-left questionnaire-tabular">
+    <p><label class="bold"><%= l :field_entitled %><span class="required">*</span></label> <%= f.text_field :title, :size => 70, :required => true %></p>
+    <p><label class="bold"><%= l :field_description %></label> <%= f.text_area :description,
+                   :rows => (@questionnaire.description.blank? ? 8 : [[8, @questionnaire.description.length / 50].max, 100].min),
+                   :cols => 100,
+                   :accesskey => accesskey(:edit)%>
+    </p>
+  </div>
+  <div class="reciptoview"></div>
+  <div class="questionnaire-right tabular">
+     <p><label class="bold"><%= l :field_starts_on %><span class="required">*</span></label><%= f.text_field :starts_on, :size => 10 %><%= calendar_for('questionnaire_starts_on') %></p>
+     <p><label class="bold"><%= l :field_ends_on %><span class="required">*</span></label><%= f.text_field :ends_on, :size => 10 %><%= calendar_for('questionnaire_ends_on') %></p>
+     <p><label class="bold"><%= l :field_revival %></label><%= f.select :revival, (1..6).collect {|i| [12*i, 12*i]}, :include_blank => true %>&nbsp;&nbsp;<%= l :label_in_hour %> </p>
+     <% if @project.questionnaires_option and @project.questionnaires_option.must_have_validators %>
+     <p><label class="bold"><%= l :field_validate_by %></label><%= f.select :validate_by,  @project.q_validators.collect { |u| [u.name, u.id]}, :include_blank => true %></p>
+     <% end %>
+     <p><label class="bold"><%= l :field_send_mail_after_recipient_response %></label><%= f.check_box :send_mail_after_recipient_response %></p>
+     <p><label class="bold"><%= l :field_send_mail_language %></label><%= f.select :send_mail_language, valid_languages.collect {|l| [ll(l.to_s, :general_lang_name), l.to_s]}, :selected => (@questionnaire.new_record? || @questionnaire.send_mail_language.blank? ? current_language.to_s : @questionnaire.send_mail_language) %></p>
+  </div>
+</fieldset>
+<div class="clearfix"></div>
+<fieldset class="box">
+  <legend class="bold"><%= l :label_question_plural %> </legend>
+  <%= render 'questions', :f => f %>
+</fieldset>
+
+<div class="box bold">
+  <p><label class="block"><%= l :field_published %>
+    <% if @questionnaire.new_record? %>  
+      <%= f.check_box :published, :onclick => "canBePublished('#{l(:notice_can_be_published)}');" %>
+    <%else%>
+      <%if @questionnaire.canbepublished?(User.current)%>
+        <%= f.check_box :published %>
+      <%else%> 
+        <%= f.check_box :published, :onclick => "canBePublished('#{l(:notice_can_be_published)}');" %>
+      <%end%>
+    <%end%>
+   </label>
+  </p>
+</div>
+
+<%= javascript_tag "document.observe('dom:loaded', createHarvestChosenSelect(''));" %>
+<%= wikitoolbar_for 'questionnaire_description' %>

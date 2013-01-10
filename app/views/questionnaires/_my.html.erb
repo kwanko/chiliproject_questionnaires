@@ -1,0 +1,46 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<% if @my and @my.any? %>
+<table class="list">
+  <thead>
+    <tr>
+      <th><%= l(:field_title) %> </th>
+      <th><%= l(:field_description) %></th>
+      <th><%= l(:field_starts_on) %></th>
+      <th><%= l(:field_ends_on) %></th>
+      <th><%= l(:field_validate_by) %></th>
+      <th><%= l(:field_replies_count) %></th> 
+      <th style="width:15%;"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%  @my.each do |q| %>
+    <tr class="<%= cycle("odd", "even") %>">
+      <td><%= q.published ? h(q.title) : link_to(h(q.title), edit_project_questionnaire_path(@project, q)) %></td>
+      <td><div class="tooltip"><%= h truncate(q.description, :length => 60)%> <span class="tip"><%= render_questionnaire_tooltip q %></span></div></td>
+      <td><%= h format_date(q.starts_on) %></td>
+      <td><%= h format_date(q.ends_on) %></td>
+      <td><%= h q.validator.name if q.validate_by and !q.validate_by.zero? %></td>
+      <td align="center"><label title="<%= l(:text_people_responded) %>"><%= q.replies.group_by(&:user_id).count %></label></td>
+      <td class="buttons">        
+        <%=  q.published ? link_to_remote(l(:button_unpublished), { :url => {:controller => 'questionnaires', :action => 'unpublish', :questionnaire_id => q, :project_id => @project}, :method => :put, :confirm => l(:notice_for_unpublication, :q => q.title)}, :title => l(:button_unpublished), :class => 'icon icon-cancel') : link_to_remote(l(:button_published), { :url => {:controller => 'questionnaires', :action => 'publish', :questionnaire_id => q, :project_id => @project}, :method => :put, :confirm => l(:notice_for_publication)}, :title => l(:button_published), :class => 'icon icon-checked') if q.ends_on >= Date.today and q.canbepublished?(User.current) %>
+        <%= link_to(l(:button_edit), edit_project_questionnaire_path(@project, q), :class => 'icon icon-edit') if !q.published %>
+        <%= link_to(l(:button_delete), project_questionnaire_path(@project, q), :method => :delete, :confirm => l(:text_on_delete_questionnaire_confirmation, :questionnaire => q.title), :class => 'icon icon-del') if !q.published %>
+        <% if q.replies.group_by(&:user_id).count > 0 %>
+          <%= link_to(l(:button_replies), {:controller => 'questionnaires', :action => 'show_replies', :questionnaire_id => q, :project_id => @project}, :method => :get, :class => 'icon icon-replies')%>
+          <%= link_to l(:button_responses_to_csv), {:controller => 'questionnaires', :action => 'show_replies', :questionnaire_id => q, :project_id => @project, :format => 'csv'}, :method => :get, :class => 'icon icon-csv', :title => l(:button_responses_to_csv) %>
+        <%end%>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<% else %>
+  <span id="no-questions"><p class="nodata"><%= l(:label_no_data) %></p></span>
+<% end %>
+
+<script>
+ if($('tab-my')) $('tab-my').insert({bottom:" (<%= @my.count.to_s %>)"});
+</script>

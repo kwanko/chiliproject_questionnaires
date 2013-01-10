@@ -1,0 +1,35 @@
+<% if @questions.count > 0 %>
+  <table class="list">
+    <% for question in @questions %>
+      <tr>
+        <td class="odd" align="left"><%= h question.entitled %></td>
+        <% replies = grouped_replies(question).collect do |reply| %>
+          <td align="center"><%= h pretty_values(question, reply) if question.nature != "FREE_TEXT" %></td>
+        <%end%>
+        <% if maxreplies_of(@questions) > replies.size %>
+         <% (maxreplies_of(@questions)-replies.size).times do %>
+           <td></td>
+          <%end%>
+         <%end%>
+      </tr>
+      <% for recipient in @questionnaire.recipients.collect(&:user) %>
+      <tr class="even">
+        <td class="questionview_recipient"><%= recipient.name %></td>
+         <% replies = grouped_replies(question).collect %>
+         <% if question.nature == "FREE_TEXT" %>
+          <td colspan="<%= replies.size %>"><%= textilizable question.answer_of(recipient) unless question.answer_of(recipient).nil? %></td>
+         <%else%>
+           <% grouped_replies(question).collect do |reply| %>
+           <td align="center"><%= question.answer_of(recipient) == reply ? 'X' : ''  unless question.answer_of(recipient).nil? %></td>
+           <%end%>
+           <% if maxreplies_of(@questions) > replies.size %>
+           <% (maxreplies_of(@questions)-replies.size).times do %>
+             <td></td>
+            <%end%>
+           <%end%>
+         <%end%>
+      </tr>
+      <%end%>
+    <%end%>
+  </table>
+<%end%>

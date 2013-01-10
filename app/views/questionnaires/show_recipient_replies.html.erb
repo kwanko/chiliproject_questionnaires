@@ -1,0 +1,6 @@
+<ol>
+  <% for question in @questionnaire.questions %>
+  <li><label class="bold"><%= question.entitled %> </label></li><br/>
+      <%= pretty_values(question,question.answer_of(@user)) %><br/><br/>
+  <% end %>
+</ol>

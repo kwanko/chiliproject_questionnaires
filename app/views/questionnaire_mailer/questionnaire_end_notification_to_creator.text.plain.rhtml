@@ -1,0 +1,11 @@
+<%=  @questionnaire.validator %>,
+
+<%=  l(:text_end_notification_to_creator, :locale => @questionnaire.send_mail_language) %>
+
+<%=l(:field_project, :locale => @questionnaire.send_mail_language)%>: <%= @questionnaire.project.name %>
+<%=l(:field_title, :locale => @questionnaire.send_mail_language)%>: <%= @questionnaire.title %>
+<%=l(:field_description, :locale => @questionnaire.send_mail_language)%>: <%= @questionnaire.description %>
+<%=l(:field_url, :locale => @questionnaire.send_mail_language)%>: <%= @questionnaire_url %>
+
+
+<%= l(:text_thanks_you, :locale => @questionnaire.send_mail_language) %>.

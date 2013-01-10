@@ -1,0 +1,22 @@
+<%#
+# Questionnaire plugin for Chiliproject
+# Copyright (C) 2011-2012 Arnauld NYAKU
+%>
+<h2><%= link_to l(:label_questionnaire_plural), {:controller => 'questionnaires', :action => 'index', :project_id => @project} %> &#187; <%= @questionnaire.title %></h2>
+
+<ol>
+  <% for question in @questionnaire.questions %>
+  <li><label class="bold"><%= question.entitled %> </label></li><br/>
+      <%= generate_reply_options_for(question) %><br/><br/>
+  <% end %>
+</ol>
+
+<% content_for :sidebar do %>
+    <%= render :partial => 'questionnaires/sidebar' %>
+<% end %>
+
+<% other_formats_links do |f| %>
+	<%= f.link_to 'PDF', :url => {:id => @questionnaire}%>
+<% end %>
+
+<% html_title(l(:label_title_questionnaire)) -%>

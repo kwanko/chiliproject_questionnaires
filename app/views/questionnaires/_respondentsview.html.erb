@@ -1,0 +1,29 @@
+<% if @questionnaire.questions.count > 0 %>
+  <table class="list">
+    <thead>
+    <tr>
+       <th></th>
+       <% for question in @questionnaire.questions %>
+       <th align="center"><%= h(question.entitled) %></th>
+       <%end%>
+    </tr>
+    </thead>
+    <% for recipient in @recipients.collect(&:user) %>
+    <tr class="<%= cycle("odd", "even") %>">
+        <td class="recipient"><%= link_to recipient.name, '#', :onclick => "Modalbox.show('" + url_for(:controller => "questionnaires", :action => "show_recipient_replies", :project_id => @project, :questionnaire_id => @questionnaire, :user_id => recipient) + "',{title: '#{recipient.name}'});" %></td>
+        <% for question in @questionnaire.questions %>
+        <td align="center"><%=  question.answer_of(recipient).nil? ? image_tag("false.png", :alt => l(:text_did_not_responded)) : image_tag("true.png", :alt => l(:text_responded)) %></td>
+        <%end%>
+    </tr>
+    <%end%>
+    <tr>
+      <td align="left"><%= l :label_answer_plural %><br/><%= l :label_absentation %> </td>
+       <% for question in @questionnaire.questions %>
+        <td align="center">
+           <%=  question.replies.select{|r| !r.values.blank?}.count %><br/>
+           <%=  question.replies.select{|r| r.values.blank?}.count %>
+        </td>
+        <%end%>
+    </tr>
+  </table>
+<%end%>
